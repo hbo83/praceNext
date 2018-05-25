@@ -16,6 +16,7 @@
     "jquery": "^3.3.1",
     "mongodb": "^3.1.0-beta4",
     "next": "^4.2.0",
+    "next-images": "^0.10.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }

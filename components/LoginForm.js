@@ -36,7 +36,8 @@ const loginReq = (e) => {
               pass: pass
             }
     }).done( function(result) {
-      alert(result)
+      console.log(result[0].login)
+      alert(`jste prihlasen jako, ${result[0].login}`)
     });
 
   } else {
