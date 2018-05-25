@@ -15,16 +15,16 @@ const validatePass = (pass, passAgain) => {
 
 const afterSignin = (login, pass, passAgain) => {
   alert("nyní jste zaregistrován a můžete se přihlásit")
-  $("div input[type='text']:nth-child(1)").val("")
-  $("div input[type='text']:nth-child(2)").val("")
-  $("div input[type='text']:nth-child(3)").val("")
+  $("div input:nth-child(1)").val("")
+  $("div input:nth-child(2)").val("")
+  $("div input:nth-child(3)").val("")
 }
 
 const signReq = (e) => {
 
   let login = $("div input[type='text']:nth-child(1)").val();
-  let pass = $("div input[type='text']:nth-child(2)").val();
-  let passAgain = $("div input[type='text']:nth-child(3)").val()
+  let pass = $("div input[type='password']:nth-child(2)").val();
+  let passAgain = $("div input[type='password']:nth-child(3)").val()
 
   if (validatePass(pass, passAgain)) {
     $.ajax({
@@ -36,18 +36,18 @@ const signReq = (e) => {
     });
   afterSignin(login);
   } else {
-    alert("heslo nesedi")
+    alert("heslo nesedi nebo neni vyplnene")
   }
   }
 
 const SigninForm = () => (
   <div style={{margin: 20, padding: 20, border: "1px solid black"}}>
     login:&nbsp;
-    <input style={style.input}type="text" />
+    <input style={style.input} type="text" maxLength="20" />
     password:&nbsp;
-    <input style={style.input}type="text" />
+    <input style={style.input} type="text" maxLength="20" />
     password again:&nbsp;
-    <input style={style.input}type="text" />
+    <input style={style.input} type="text" maxLength="20" />
     <button onClick={signReq}>signin</button>
   </div>
 )

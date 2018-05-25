@@ -40,7 +40,33 @@ app.get('/signin', (req, res)=>{
   res.send("ahoj");
 })
 
+app.get('/login', (req, res)=> {
 
+  let login = req.query.login
+  let pass = req.query.pass
+
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      throw (err)
+    }
+    let dbo = db.db("prace")
+    dbo.collection('users').find( { login: login} ).limit(50).toArray( ( err, result ) => {
+      if (err) {
+        throw (err)
+      }
+    console.log(result);
+    res.send( result );
+    })
+    console.log("stat updated")
+    db.close();
+  });
+
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Credentials", true);
+  console.log(login + pass)
+
+})
 
 
 
