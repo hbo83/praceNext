@@ -12,7 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-plugin-import-static-files": "^1.0.4",
     "express": "^4.16.3",
+    "fs": "0.0.1-security",
     "jquery": "^3.3.1",
     "mongodb": "^3.1.0-beta4",
     "next": "^4.2.0",

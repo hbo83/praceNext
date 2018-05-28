@@ -7,6 +7,7 @@ const linkStyle = {
 
 const Header = () => (
     <div>
+
         <Link href="/signin">
           <button style={linkStyle}>signin</button>
         </Link>

@@ -8,7 +8,7 @@ const CustomersCard = () => (
 
 
     <div style={{margin: 5, padding: 20, border: "1px solid black"}}>
-      <img src="" width="50" height="50" />
+      <img src="http://react.panelia.cz/backGround.jpg" width="50" height="50" />
     </div>
     <div style={{margin: 5, padding: 10, border: "1px solid black"}}>
       <ul>

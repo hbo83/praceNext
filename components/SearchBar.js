@@ -1,11 +1,36 @@
 import Link from 'next/link'
+import $ from 'jquery'
 
-const SearchBar = () => (
+let towns = [ "Praha", "Plzen"]
+
+class AutoComplete {
+  constructor() {
+    this.devMode = true // Always loads draft
+    this.token = 'PREVIEW_TOKEN'
+    this.client = new StoryblokClient({
+      accessToken: this.token,
+      cache: {
+        clear: 'auto',
+        type: 'memory'
+      }
+    })
+
+    this.query = {}
+  }
+}
+
+
+
+
+
+
+const SearchBar = (props) => (
   <div style={{margin: 20, padding: 20, border: "1px solid #DDD"}}>
     Job: &nbsp;
+    <input id="tags" type="text" />
+    <label for="tags">Town:</label>
     <input type="text" />
-    Town: &nbsp;
-    <input type="text" />
+    <p>{props.mesto}</p>
   </div>
 )
 

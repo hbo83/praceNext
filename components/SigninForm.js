@@ -22,9 +22,10 @@ const afterSignin = (login, pass, passAgain) => {
 
 const signReq = (e) => {
 
-  let login = $("div input[type='text']:nth-child(1)").val();
-  let pass = $("div input[type='password']:nth-child(2)").val();
-  let passAgain = $("div input[type='password']:nth-child(3)").val()
+  let login = $("div input:nth-child(1)").val()
+  let pass = $("div input:nth-child(2)").val()
+  let passAgain = $("div input:nth-child(3)").val()
+  console.log(login + pass + passAgain)
 
   if (validatePass(pass, passAgain)) {
     $.ajax({
