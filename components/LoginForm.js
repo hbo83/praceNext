@@ -49,18 +49,54 @@ const loginReq = (e) => {
   }
   }
 
-const LoginForm = (login) => (
-  <div style={{margin: 20, padding: 20, border: "1px solid black"}}>
-    login:&nbsp;
-    <input style={style.input} type="text" maxLength="20" />
-    password:&nbsp;
-    <input style={style.input} type="text" maxLength="20" />
-        <button onClick={loginReq}>login</button>
-    <State
-      user = {"login"} />
-  </div>
-)
+export default class extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {currentSlide: 0, user: "none"}
+
+
+  }
+
+
+  getValues = () => {
+    let login = $("div input[type='text']:nth-child(1)").val();
+    let pass = $("div input[type='password']:nth-child(2)").val();
+    let data = {
+      login: login,
+      pass: pass
+    }
+    return data
+  }
+  login(data) {
+    fetch("http://localhost:3001/login", {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).then(response => response.json())//fetch vraci promisu a ne objekt, takze tu nejdriv musim zpracovat a az pak vypsat
+    .then(json => this.setState( { user: json[0].login } ) )
+
+  }
+
+render() {
+  return (
+    <div style={{margin: 20, padding: 20, border: "1px solid black"}}>
+      login:&nbsp;
+      <input style={style.input} type="text" maxLength="20" />
+      password:&nbsp;
+      <input style={style.input} type="text" maxLength="20" />
+          <p>{this.props.user}: {this.state.user}</p>
+          <button onClick={() => this.login(this.getValues())}>posli</button>
+
+    </div>
+  )
+}
 
 
 
-export default LoginForm
+
+
+}
