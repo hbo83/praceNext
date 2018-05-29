@@ -2,12 +2,14 @@ const express = require('express')
 const path = require('path')
 const MongoClient = require('mongodb').MongoClient
 var url = "mongodb://localhost:27017/prace"
-
+var cors = require('cors')
 //var signinRoute = require('./routes/signin');
 
 const app = express()
+app.use(cors())//povoli cors requesty
 
-
+var bodyParser = require('body-parser')
+app.use(bodyParser.json());
 //app.use(express.static(__dirname + '/public'))
 app.use( express.static( `${__dirname}/out` ) );
 
@@ -40,10 +42,10 @@ app.get('/signin', (req, res)=>{
   res.send("ahoj");
 })
 
-app.get('/login', (req, res)=> {
+app.post('/login', (req, res) => {
 
-  let login = req.query.login
-  let pass = req.query.pass
+  let login = req.body.login
+  //let pass = req.body.pass
 
   MongoClient.connect(url, (err, db) => {
     if (err) {
@@ -55,17 +57,24 @@ app.get('/login', (req, res)=> {
         throw (err)
       }
     console.log(result);
-    res.send( result );
+    res.json(result)
     })
     console.log("stat updated")
     db.close();
   });
 
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Access-Control-Allow-Credentials", true);
-  console.log(login + pass)
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
+
+})
+
+app.post('/post', function (req, res) {
+  console.log(req.body)
+  let name = req.body;
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.json(name)
 })
 
 

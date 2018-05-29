@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import $ from 'jquery'
+import State from '../components/State'
+
+let login = {}
 
 const style = {
   input: {
@@ -38,6 +41,7 @@ const loginReq = (e) => {
     }).done( function(result) {
       console.log(result[0].login)
       alert(`jste prihlasen jako, ${result[0].login}`)
+      login = result[0].login
     });
 
   } else {
@@ -45,13 +49,15 @@ const loginReq = (e) => {
   }
   }
 
-const LoginForm = () => (
+const LoginForm = (login) => (
   <div style={{margin: 20, padding: 20, border: "1px solid black"}}>
     login:&nbsp;
     <input style={style.input} type="text" maxLength="20" />
     password:&nbsp;
     <input style={style.input} type="text" maxLength="20" />
         <button onClick={loginReq}>login</button>
+    <State
+      user = {"login"} />
   </div>
 )
 
