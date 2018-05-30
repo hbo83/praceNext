@@ -3,9 +3,13 @@ const path = require('path')
 const MongoClient = require('mongodb').MongoClient
 var url = "mongodb://localhost:27017/prace"
 var cors = require('cors')
+var cookieParser = require('cookie-parser')
+
 //var signinRoute = require('./routes/signin');
 
 const app = express()
+
+//app.use(cookieParser())
 app.use(cors())//povoli cors requesty
 
 var bodyParser = require('body-parser')
@@ -17,11 +21,11 @@ app.get('/a', (req, res)=>{
   res.sendFile(path.join(__dirname, '/out/index.html'));
 })
 
-app.get('/signin', (req, res)=>{
+app.post('/signin', (req, res)=>{
 
-  let login = req.query.login
-  let pass = req.query.pass
-  let passAgain = req.query.passAgain
+  let login = req.body.login
+  let pass = req.body.pass
+  let passAgain = req.body.passAgain
 
   MongoClient.connect(url, (err, db) => {
     if (err) {
@@ -56,6 +60,7 @@ app.post('/login', (req, res) => {
       if (err) {
         throw (err)
       }
+
     console.log(result);
     res.json(result)
     })
@@ -69,12 +74,40 @@ app.post('/login', (req, res) => {
 
 })
 
-app.post('/post', function (req, res) {
+app.post('/update', function (req, res) {
   console.log(req.body)
-  let name = req.body;
+
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      throw (err)
+    }
+    let dbo = db.db("prace")
+
+    let myquery = { login: "aaa" }
+    let v = { $set: {town: "town"}}
+    let newvalues = { $set: {
+
+      town: req.body.town,
+      time: req.body.time,
+      activity: req.body.activity,
+      phone: req.body.phone,
+      mail: req.body.mail
+    } };
+    dbo.collection('users').updateOne( myquery, v, function (err, res) {
+
+      if (err) {
+        throw (err)
+        console.log("stat updated")
+        db.close();
+    }
+
+
+    })
+  });
+
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.json(name)
+  //res.json(name)
 })
 
 

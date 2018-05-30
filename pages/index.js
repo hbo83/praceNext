@@ -19,10 +19,13 @@ export default () => (
       }
       `}
     </style>
-       <p>Hello Next.js</p>
+
     </Layout>
+    
     <obrazek />
     <SearchBar mesto="Praha" />
+    <CustomersCard />
+    <CustomersCard />
     <CustomersCard />
     <Galery />
     <State />

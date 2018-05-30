@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import $ from 'jquery'
 
 const style = {
   input: {
@@ -6,47 +7,61 @@ const style = {
   }
 }
 
-const changeReq = () => {
-  $.ajax({
-          url: "http://localhost:3001/update",
-          xhrFields: {
-            withCredentials: true
-          },
-          data: {
-            login: login,
-            pass: pass
-          }
-  }).done( function(result) {
-    console.log(result[0].login)
-    alert(`jste prihlasen jako, ${result[0].login}`)
+const getObject = () => {
+  let obj ={};
+
+
+
+  obj.town = $("#town").val()
+  obj.time = $("#time").val()
+  obj.activity = $("#activity").val()
+  obj.phone = $("#phone").val()
+  obj.email = $("#email").val()
+  obj.price = $("#price").val()
+ console.log(obj)
+  return obj;
+}
+
+
+const update = () => {
+  fetch("http://localhost:3001/update", {
+    method: 'POST',
+    body: JSON.stringify(getObject()),
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  }
+
   });
 }
 const CustomersData = () => (
+  
     <div style={{margin: 20, padding: 20, border: "1px solid black", display: "flex", alignItems: "flex-start", flexWrap: "wrap"}}>
       <div style={{margin: 0, padding: 20, border: "1px solid black"}}>
         login:&nbsp;
         <hr />
         password:&nbsp;
-        <input style={style.input} type="password" maxLength="20" />
+        <input style={style.input} type="password" maxLength="20" placeholder="password"/>
         <br />
         password again:&nbsp;
-        <input style={style.input} type="password" maxLength="20" />
-        <button onClick={changeReq}>change</button>
+        <input style={style.input} type="password" maxLength="20" placeholder="password again"/>
+        old password:&nbsp;
+        <input style={style.input} type="password" maxLength="20"  placeholder="old password"/>
+        <button>change</button>
       </div>
       <div style={{margin: 0, padding: 20, border: "1px solid black"}}>
         town of activity:&nbsp;
-        <input style={style.input} type="text" maxLength="20" />
+        <input  id="town" style={style.input} type="text" maxLength="20"  placeholder="town"/>
         <hr />
         time for work:&nbsp;
-        <input style={style.input} type="text" maxLength="20" />
+        <input  id="time" style={style.input} type="text" maxLength="20"  placeholder="time"/>
         <hr />
 
       </div>
       <div style={{margin: 0, padding: 20, border: "1px solid black"}}>
         my activity:&nbsp;
-        <textarea rows="4" cols="50">
-        At w3schools.com you will learn how to make a
-        website. We offer free tutorials in all web development technologies.
+        <textarea  id="description" rows="4" cols="50"  placeholder="description">
+
         </textarea>
 
       </div>
@@ -54,10 +69,10 @@ const CustomersData = () => (
         contact:&nbsp;
         <hr />
         phone:&nbsp;
-        <input style={style.input} type="text" maxLength="20" />
+        <input id="phone" style={style.input} type="text" maxLength="20"  placeholder="phone"/>
         <hr />
         email:&nbsp;
-        <input style={style.input} type="text" maxLength="20" />
+        <input id="email" style={style.input} type="text" maxLength="20"  placeholder="email"/>
 
 
       </div>
@@ -65,10 +80,10 @@ const CustomersData = () => (
         price:&nbsp;
         <hr />
 
-        <input style={style.input} type="text" maxLength="20" />
+        <input id="price" style={style.input} type="text" maxLength="20"  placeholder="password"/>
       </div>
       <div style={{width: "100%"}}>
-      <button onClick={changeReq}>change</button>
+      <button onClick={update}>change</button>
       </div>
     </div>
 )
