@@ -6,7 +6,7 @@ const linkStyle = {
 }
 
 const Header = () => (
-    <div style={{ display: "flex", flexDirection: "row-reverse", backgroundImage: "url(http://react.panelia.cz/Lister.jpg)"}}>
+    <div style={{ width: "100%", height: "100px", border: "1px solid black", display: "flex", flexDirection: "row-reverse", backgroundImage: "url(http://react.panelia.cz/Lister.jpg)"}}>
     <img src="http://react.panelia.cz/backGround.jpg" width="50" height="50" />
 
         <Link href="/signin">

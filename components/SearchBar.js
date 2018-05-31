@@ -28,7 +28,7 @@ const SearchBar = (props) => (
   <div style={{margin: 20, padding: 20, border: "1px solid #DDD"}}>
     Job: &nbsp;
     <input id="tags" type="text" />
-    <label for="tags">Town:</label>
+    <label htmlFor="tags">Town:</label>
     <input type="text" />
     <p>{props.mesto}</p>
   </div>
