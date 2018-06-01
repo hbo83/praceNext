@@ -64,7 +64,7 @@ app.post('/login', (req, res) => {
     console.log(result);
     res.json(result)
     })
-    console.log("stat updated")
+    console.log("logged")
     db.close();
   });
 
@@ -84,7 +84,6 @@ app.post('/update', function (req, res) {
     let dbo = db.db("prace")
 
     let myquery = { login: "aaa" }
-    let v = { $set: {town: "town"}}
     let newvalues = { $set: {
 
       town: req.body.town,
@@ -93,7 +92,7 @@ app.post('/update', function (req, res) {
       phone: req.body.phone,
       mail: req.body.mail
     } };
-    dbo.collection('users').updateOne( myquery, v, function (err, res) {
+    dbo.collection('users').updateOne( myquery, newvalues, function (err, res) {
 
       if (err) {
         throw (err)

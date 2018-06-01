@@ -4,17 +4,18 @@ import Header from '../components/Header.js'
 import SearchBar from '../components/SearchBar.js'
 import CustomersCard from '../components/CustomersCard.js'
 import Galery from '../components/Galery.js'
-import obrazek from '../components/obrazek.js'
-import State from '../components/State.js'
+import CustomersData from '../components/CustomersData.js'
+
 import Main from '../components/Main.js'
 import what from'whatwg-fetch'
-import axios from 'axios'
+
+import "isomorphic-fetch"
 
 export default class extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { user: "Přihlásit: ",
+    this.state = { user: "nepřihlášen ",
                    pass: "",
                    town: "",
                    time: "",
@@ -23,28 +24,29 @@ export default class extends React.Component {
                    email: "",
                    price: "",
                    display: "flex",
-                   loginData: {
-                     login: "",
-                     password: ""
-                   }
+                   login: "",
+                   pass: ""
                  }
 
-    this.handleChange = this.handleChange.bind(this);
-    this.fetchData = this.fetchData.bind(this)
+    this.handleChangeLogin = this.handleChangeLogin.bind(this);
+    this.handleChangePass = this.handleChangePass.bind(this);
+    this.fetchData = this.fetchData.bind(this);
   }
 
-fetchData(login, pass) {
-alert(login + data)
+componentDidMount() {
+
 }
-  fetch('http://localhost:3001/login'), {
+fetchData() {
+  fetch('http://localhost:3001/login', {
     method: 'POST',
-    body: JSON.stringify({login: login, password: pass}),
+    body: JSON.stringify({login: this.state.login, pass: this.state.pass}),
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     }
   }).then(response => response.json())
-  .then(json => this.setState( { user: json[0].login,
+  .then(json => this.setState( {
+    user: json[0].login,
     pass: json[0].pass,
     town: json[0].town,
     time: json[0].time,
@@ -52,13 +54,19 @@ alert(login + data)
     phone: json[0].phone,
     email: json[0].email,
     price: json[0].price
-  } ).catch(errorr => console.log("error"))
+  } )
 )
 
+}
 
-handleChange(event) {
-    this.setState({value: event.target.value});
-    console.log(this.state.value)
+handleChangeLogin(event) {
+    this.setState({login: event.target.value});
+    console.log(this.state.login)
+  }
+
+handleChangePass(event) {
+    this.setState({pass: event.target.value});
+    console.log(this.state.pass)
   }
 
   render() {
@@ -66,24 +74,22 @@ handleChange(event) {
        <div>
        <div style={{margin: 20, padding: 0, border: "1px solid black", display: "flex" ,width: "515px", height: "20px", float: "right"}}>
 
-
-
-         <input type="text" maxLength="20" onChange={this.handleChange}/>
-
-         <input type="text" maxLength="20"  onChange={this.handleChange} placeholder={this.props.user}/>
-
-             <button onClick={this.fetchData("aaa",111)}>prihlasit</button>
+         <input type="text" maxLength="20" onChange={this.handleChangeLogin}/>
+         <input type="text" maxLength="20" onChange={this.handleChangePass} placeholder={this.state.user}/>
+         <button onClick={this.fetchData}>prihlasit</button>{this.state.phone}
 
        </div>
-       <button onClick={this.a}>dsds</button>
-        <Header />
 
-        <SearchBar mesto="Praha" />
-        <CustomersCard />
-        <CustomersCard />
-        <CustomersCard />
-        <Galery />
-        <State />
+      <CustomersData town={this.state.town}
+                     user={this.state.user}
+                     time={this.state.town}
+                     activity={this.state.activity}
+                     phone={this.state.phone}
+                     email={this.state.email}
+                     price={this.state.price}
+       />
+
+
 
       </div>
     )

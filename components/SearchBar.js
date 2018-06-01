@@ -1,37 +1,25 @@
-import Link from 'next/link'
-import $ from 'jquery'
 
-let towns = [ "Praha", "Plzen"]
+export default class extends React.Component {
 
-class AutoComplete {
-  constructor() {
-    this.devMode = true // Always loads draft
-    this.token = 'PREVIEW_TOKEN'
-    this.client = new StoryblokClient({
-      accessToken: this.token,
-      cache: {
-        clear: 'auto',
-        type: 'memory'
-      }
-    })
-
-    this.query = {}
+constructor (props) {
+    super(props)
+    this.state = {
+      value: ''
+    }
+    this.handle = this.handle.bind(this)
   }
+
+pole = ["elektrikar"]
+
+handle() {
+  this.setState( {value: this.pole[0] })
+  console.log(this.pole[0])
 }
-
-
-
-
-
-
-const SearchBar = (props) => (
-  <div style={{margin: 20, padding: 20, border: "1px solid #DDD"}}>
-    Job: &nbsp;
-    <input id="tags" type="text" />
-    <label htmlFor="tags">Town:</label>
-    <input type="text" />
-    <p>{props.mesto}</p>
-  </div>
-)
-
-export default SearchBar
+render() {
+  return (
+    <div>
+      <input type="text" maxLength="20" value={this.state.value} onChange={this.handle}/>
+    </div>
+  )
+}
+}
